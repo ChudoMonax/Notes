@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notes2"
         mc:Ignorable="d"
-        Title="SaveNewFolder" Height="100" Width="300">
-    <Grid>
-        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="SaveNewFolder" Height="150" Width="300">
+    <Grid Margin="10,10,10,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBox x:Name="FolderName" materialDesign:HintAssist.Hint="Folder Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Button Name="CreateFolder" Content="Create Folder"></Button>
+        </Grid>
     </Grid>
 </Window>
