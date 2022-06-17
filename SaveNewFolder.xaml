@@ -16,7 +16,7 @@
             <TextBox x:Name="FolderName" materialDesign:HintAssist.Hint="Folder Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
         </Grid>
         <Grid Grid.Row="1">
-            <Button Name="CreateFolder" Content="Create Folder"></Button>
+            <Button Name="CreateFolder" Content="Create Folder" Click="CreateFolder_Click"></Button>
         </Grid>
     </Grid>
 </Window>

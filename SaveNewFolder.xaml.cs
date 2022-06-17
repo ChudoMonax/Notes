@@ -23,5 +23,22 @@ namespace Notes2
         {
             InitializeComponent();
         }
+
+        private void CreateFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if (FolderName.Text == "")
+            {
+                FolderName.ToolTip = "Folder name can't be empty";
+                //FolderName.Background = Brushes.Red;
+            }
+            else
+            {
+                string NameOfFolder = FolderName.Text;
+            }
+            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + FolderName.Text;
+            System.IO.Directory.CreateDirectory(Path);
+
+            Close();
+        }
     }
 }

@@ -21,6 +21,9 @@ namespace Notes2
 			InitializeComponent();
 			cmbFontFamily.ItemsSource = Fonts.SystemFontFamilies.OrderBy(f => f.Source);
 			cmbFontSize.ItemsSource = new List<double>() { 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
+
+			ListOfFolders.AutoGenerateColumns = false;
+			ListOfFolders.ColumnWidth = DataGridLength.Auto;
 		}
 
 		private void rtbEditor_SelectionChanged(object sender, RoutedEventArgs e)
@@ -54,5 +57,19 @@ namespace Notes2
 			SaveNewFolder savenewfolder = new SaveNewFolder();
 			savenewfolder.ShowDialog();
 		}
+
+        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+			string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes";
+			List<Folder> AllFolders = Directory.GetDirectories(Path).Select(s => new Folder() { Title = s.Replace(Path + @"\", "") }).ToList();
+
+			ListOfFolders.ItemsSource = AllFolders;
+			int j = 1;
+		}
+    }
+
+    public class Folder
+    {
+		public string? Title { get; set; }
     }
 }

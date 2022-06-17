@@ -23,8 +23,10 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0">
-                    <ListBox></ListBox>
+                <DataGrid Grid.Row="0" Loaded="DataGrid_Loaded" x:Name="ListOfFolders">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="FolderName" Binding="{Binding Title}"></DataGridTextColumn>
+                    </DataGrid.Columns>
                 </DataGrid>
                 <Button Grid.Row="1" Name="NewFolder" Content="New Folder" Width="160" Click="NewFolder_Click"></Button>
             </Grid>
