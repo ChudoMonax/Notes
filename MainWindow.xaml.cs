@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using Microsoft.Win32;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace Notes2
 {
@@ -54,22 +52,37 @@ namespace Notes2
 
         private void NewFolder_Click(object sender, RoutedEventArgs e)
         {
-			SaveNewFolder savenewfolder = new SaveNewFolder();
+			SaveNewFolder savenewfolder = new SaveNewFolder(this);
 			savenewfolder.ShowDialog();
 		}
 
-        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
+        public void FoldersDataGrid_Loaded(object sender, RoutedEventArgs e)
         {
 			string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes";
 			List<Folder> AllFolders = Directory.GetDirectories(Path).Select(s => new Folder() { Title = s.Replace(Path + @"\", "") }).ToList();
-
 			ListOfFolders.ItemsSource = AllFolders;
-			int j = 1;
 		}
+
+        private void ListOfFolders_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+			string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + ((Folder)ListOfFolders.SelectedItem).Title;
+			List<File> AllFiles = Directory.GetFiles(Path).Select(s => new File() { FileName = s.Replace(Path + @"\", "") }).ToList();
+			ListOfFiles.ItemsSource = AllFiles;
+		}
+
+        private void ListOfFiles_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public class Folder
     {
-		public string? Title { get; set; }
+		public string Title { get; set; }
+    }
+
+	public class File
+    {
+		public string FileName { get; set; }
     }
 }

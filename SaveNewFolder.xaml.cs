@@ -19,17 +19,21 @@ namespace Notes2
     /// </summary>
     public partial class SaveNewFolder : Window
     {
-        public SaveNewFolder()
+        MainWindow _M;
+        public SaveNewFolder(MainWindow m)
         {
             InitializeComponent();
+            _M = m;
         }
 
         private void CreateFolder_Click(object sender, RoutedEventArgs e)
         {
+            var a = sender;
+            RoutedEventArgs b = e;
             if (FolderName.Text == "")
             {
                 FolderName.ToolTip = "Folder name can't be empty";
-                //FolderName.Background = Brushes.Red;
+                // FolderName.Background = Brushes.Red;
             }
             else
             {
@@ -37,8 +41,8 @@ namespace Notes2
             }
             string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + FolderName.Text;
             System.IO.Directory.CreateDirectory(Path);
-
             Close();
+            _M.FoldersDataGrid_Loaded(sender, e);
         }
     }
 }

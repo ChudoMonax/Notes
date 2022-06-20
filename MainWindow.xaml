@@ -23,22 +23,24 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" Loaded="DataGrid_Loaded" x:Name="ListOfFolders">
+                <DataGrid Grid.Row="0" Loaded="FoldersDataGrid_Loaded" x:Name="ListOfFolders" CanUserAddRows="False" CanUserDeleteRows="False" Focusable="True" AutoGenerateColumns="False" Width="200" SelectedCellsChanged="ListOfFolders_SelectedCellsChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="FolderName" Binding="{Binding Title}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Grid.Row="1" Name="NewFolder" Content="New Folder" Width="160" Click="NewFolder_Click"></Button>
+                <Button Grid.Row="1" Name="NewFolder" Content="New Folder" Width="200" Click="NewFolder_Click"></Button>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0">
-                    <ListBox></ListBox>
+                <DataGrid Grid.Row="0" Loaded="ListOfFiles_Loaded" x:Name="ListOfFiles" CanUserAddRows="False" CanUserDeleteRows="False" Focusable="True" AutoGenerateColumns="False" Width="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="FIleName" Binding="{Binding FileName}"></DataGridTextColumn>
+                    </DataGrid.Columns>
                 </DataGrid>
-                <Button Grid.Row="1" Name="NewNote" Content="New Note" Width="160"></Button>
+                <Button Grid.Row="1" Name="NewNote" Content="New Note" Width="200"></Button>
             </Grid>
             <Grid Grid.Column="2">
                 <DockPanel>
