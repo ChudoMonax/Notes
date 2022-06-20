@@ -63,14 +63,18 @@ namespace Notes2
 			ListOfFolders.ItemsSource = AllFolders;
 		}
 
-        private void ListOfFolders_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        public void ListOfFolders_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-			string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + ((Folder)ListOfFolders.SelectedItem).Title;
-			List<File> AllFiles = Directory.GetFiles(Path).Select(s => new File() { FileName = s.Replace(Path + @"\", "") }).ToList();
-			ListOfFiles.ItemsSource = AllFiles;
+			if (ListOfFolders.SelectedItem != null)
+            {
+				string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + ((Folder)ListOfFolders.SelectedItem).Title;
+				List<File> AllFiles = Directory.GetFiles(Path).Select(s => new File() { FileName = s.Replace(Path + @"\", "") }).ToList();
+				ListOfFiles.ItemsSource = AllFiles;
+			}
+			
 		}
 
-        private void ListOfFiles_Loaded(object sender, RoutedEventArgs e)
+        public void ListOfFiles_Loaded(object sender, RoutedEventArgs e)
         {
 
         }

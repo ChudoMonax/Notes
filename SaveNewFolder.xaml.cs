@@ -43,6 +43,8 @@ namespace Notes2
             System.IO.Directory.CreateDirectory(Path);
             Close();
             _M.FoldersDataGrid_Loaded(sender, e);
+            _M.ListOfFiles_Loaded(sender, e);
+            _M.ListOfFolders_SelectedCellsChanged(sender, null);
         }
     }
 }
