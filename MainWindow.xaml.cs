@@ -94,7 +94,13 @@ namespace Notes2
         {
 			SaveNewFile savenewfile = new SaveNewFile(this, SelectedFolder);
 			savenewfile.ShowDialog();
-        }
+
+			//string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + SelectedFolder.Title + @"\" + SelectedFile.FileName + ".rtf";
+			FileStream fileStream = new FileStream(savenewfile.CreatedFileName + ".rtf", FileMode.Create);
+			TextRange range = new TextRange(rtbEditor.Document.ContentStart, rtbEditor.Document.ContentEnd);
+			range.Save(fileStream, DataFormats.Rtf);
+			fileStream.Close();
+		}
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
