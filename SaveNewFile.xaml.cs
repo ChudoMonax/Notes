@@ -44,9 +44,7 @@ namespace Notes2
             string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + _F.Title + @"\" + FileName.Text;
             System.IO.File.Create(Path);
             Close();
-            _M.FoldersDataGrid_Loaded(sender, e);
             _M.ListOfFiles_Loaded(sender, e);
-            _M.ListOfFolders_SelectedCellsChanged(sender, null);
         }
     }
 }

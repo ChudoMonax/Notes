@@ -77,7 +77,14 @@ namespace Notes2
 
         public void ListOfFiles_Loaded(object sender, RoutedEventArgs e)
         {
-        }
+			if (ListOfFolders.SelectedItem != null)
+			{
+				SelectedFolder = ((Folder)ListOfFolders.SelectedItem);
+				string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + SelectedFolder.Title;
+				List<File> AllFiles = Directory.GetFiles(Path).Select(s => new File() { FileName = s.Replace(Path + @"\", "") }).ToList();
+				ListOfFiles.ItemsSource = AllFiles;
+			}
+		}
 
         private void NewNote_Click(object sender, RoutedEventArgs e)
         {
