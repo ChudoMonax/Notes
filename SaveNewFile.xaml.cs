@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +31,9 @@ namespace Notes2
 
         private void CreateFile_Click(object sender, RoutedEventArgs e)
         {
-            var a = sender;
-            RoutedEventArgs b = e;
+            //RichTextBox rtb = new RichTextBox();
+            //var a = sender;
+            //RoutedEventArgs b = e;
             if (FileName.Text == "")
             {
                 FileName.ToolTip = "File name can't be empty";
@@ -41,8 +43,14 @@ namespace Notes2
             {
                 string NameOfFolder = FileName.Text;
             }
-            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + _F.Title + @"\" + FileName.Text;
+            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + _F.Title + @"\" + FileName.Text + ".rtf";
+
+            //FileStream fileStream = new FileStream(Path, FileMode.Create);
+            //TextRange range = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+            //range.Save(fileStream, DataFormats.Rtf);
+
             System.IO.File.Create(Path);
+            //System.IO.File.WriteAllText(Path, "123123");
             Close();
             _M.ListOfFiles_Loaded(sender, e);
         }

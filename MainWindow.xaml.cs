@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Notes2
@@ -14,6 +16,9 @@ namespace Notes2
     /// </summary>
     public partial class MainWindow : Window
     {
+		Folder SelectedFolder = new Folder();
+		File SelectedFile = new File();
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -63,14 +68,13 @@ namespace Notes2
 			ListOfFolders.ItemsSource = AllFolders;
 		}
 
-		Folder SelectedFolder = new Folder();
 		public void ListOfFolders_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
 			if (ListOfFolders.SelectedItem != null)
             {
 				SelectedFolder = ((Folder)ListOfFolders.SelectedItem);
 				string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + SelectedFolder.Title;
-				List<File> AllFiles = Directory.GetFiles(Path).Select(s => new File() { FileName = s.Replace(Path + @"\", "") }).ToList();
+				List<File> AllFiles = Directory.GetFiles(Path).Select(s => new File() { FileName = s.Replace(Path + @"\", "").Replace(".rtf", "") }).ToList();
 				ListOfFiles.ItemsSource = AllFiles;
 			}
 		}
@@ -81,7 +85,7 @@ namespace Notes2
 			{
 				SelectedFolder = ((Folder)ListOfFolders.SelectedItem);
 				string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + SelectedFolder.Title;
-				List<File> AllFiles = Directory.GetFiles(Path).Select(s => new File() { FileName = s.Replace(Path + @"\", "") }).ToList();
+				List<File> AllFiles = Directory.GetFiles(Path).Select(s => new File() { FileName = s.Replace(Path + @"\", "").Replace(".rtf", "") }).ToList();
 				ListOfFiles.ItemsSource = AllFiles;
 			}
 		}
@@ -91,6 +95,28 @@ namespace Notes2
 			SaveNewFile savenewfile = new SaveNewFile(this, SelectedFolder);
 			savenewfile.ShowDialog();
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+			string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + SelectedFolder.Title + @"\" + SelectedFile.FileName + ".rtf";
+			FileStream fileStream = new FileStream(Path, FileMode.Create);
+			TextRange range = new TextRange(rtbEditor.Document.ContentStart, rtbEditor.Document.ContentEnd);
+			range.Save(fileStream, DataFormats.Rtf);
+			fileStream.Close();
+		}
+
+        private void ListOfFiles_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+			if (ListOfFiles.SelectedItem != null)
+			{
+				SelectedFile = ((File)ListOfFiles.SelectedItem);
+				string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + SelectedFolder.Title + @"\" + SelectedFile.FileName + ".rtf";
+				FileStream fileStream = new FileStream(Path, FileMode.Open);
+				TextRange range = new TextRange(rtbEditor.Document.ContentStart, rtbEditor.Document.ContentEnd);
+				range.Load(fileStream, DataFormats.Rtf);
+				fileStream.Close();
+			}
+		}
     }
 
     public class Folder

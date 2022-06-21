@@ -17,6 +17,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -35,7 +36,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" Loaded="ListOfFiles_Loaded" x:Name="ListOfFiles" CanUserAddRows="False" CanUserDeleteRows="False" Focusable="True" AutoGenerateColumns="False" Width="200">
+                <DataGrid Grid.Row="0" Loaded="ListOfFiles_Loaded" x:Name="ListOfFiles" CanUserAddRows="False" CanUserDeleteRows="False" Focusable="True" AutoGenerateColumns="False" Width="200" SelectedCellsChanged="ListOfFiles_SelectedCellsChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="FIleName" Binding="{Binding FileName}"></DataGridTextColumn>
                     </DataGrid.Columns>
@@ -43,20 +44,21 @@
                 <Button Grid.Row="1" Name="NewNote" Content="New Note" Width="200" Click="NewNote_Click"></Button>
             </Grid>
             <Grid Grid.Column="2">
+
                 <DockPanel>
                     <ToolBar DockPanel.Dock="Top">
-                        <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold">
-                        </ToggleButton>
-                        <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic">
-                        </ToggleButton>
-                        <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline">
-                        </ToggleButton>
+                        <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold"></ToggleButton>
+                        <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic"></ToggleButton>
+                        <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline"></ToggleButton>
                         <Separator />
                         <ComboBox Name="cmbFontFamily" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged" />
                         <ComboBox Name="cmbFontSize" Width="50" IsEditable="True" TextBoxBase.TextChanged="cmbFontSize_TextChanged" />
                     </ToolBar>
                     <RichTextBox Name="rtbEditor" SelectionChanged="rtbEditor_SelectionChanged" />
                 </DockPanel>
+            </Grid>
+            <Grid Grid.Column="3">
+                <Button x:Name="SaveButton" Content="SAVE" Click="SaveButton_Click"></Button>
             </Grid>
         </Grid>
     </Grid>
