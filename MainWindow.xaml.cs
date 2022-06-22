@@ -97,9 +97,14 @@ namespace Notes2
 
 			//string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + SelectedFolder.Title + @"\" + SelectedFile.FileName + ".rtf";
 			FileStream fileStream = new FileStream(savenewfile.CreatedFileName + ".rtf", FileMode.Create);
-			TextRange range = new TextRange(rtbEditor.Document.ContentStart, rtbEditor.Document.ContentEnd);
+
+			RichTextBox rtbClear = new RichTextBox();
+
+			TextRange range = new TextRange(rtbClear.Document.ContentStart, rtbClear.Document.ContentEnd);
 			range.Save(fileStream, DataFormats.Rtf);
 			fileStream.Close();
+
+			ListOfFiles_Loaded(sender, e);
 		}
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -113,6 +118,8 @@ namespace Notes2
 
         private void ListOfFiles_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+
+			SaveButton_Click(sender, null);
 			if (ListOfFiles.SelectedItem != null)
 			{
 				SelectedFile = ((File)ListOfFiles.SelectedItem);
@@ -121,6 +128,10 @@ namespace Notes2
 				TextRange range = new TextRange(rtbEditor.Document.ContentStart, rtbEditor.Document.ContentEnd);
 				range.Load(fileStream, DataFormats.Rtf);
 				fileStream.Close();
+
+				rtbEditor.Focusable = true;
+
+				
 			}
 		}
     }
