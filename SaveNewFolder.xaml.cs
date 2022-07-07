@@ -38,13 +38,13 @@ namespace Notes2
             else
             {
                 string NameOfFolder = FolderName.Text;
+                string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + FolderName.Text;
+                System.IO.Directory.CreateDirectory(Path);
+                Close();
+                _M.FoldersDataGrid_Loaded(sender, e);
+                _M.ListOfFiles_Loaded(sender, e);
+                _M.ListOfFolders_SelectedCellsChanged(sender, null);
             }
-            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + FolderName.Text;
-            System.IO.Directory.CreateDirectory(Path);
-            Close();
-            _M.FoldersDataGrid_Loaded(sender, e);
-            _M.ListOfFiles_Loaded(sender, e);
-            _M.ListOfFolders_SelectedCellsChanged(sender, null);
         }
     }
 }

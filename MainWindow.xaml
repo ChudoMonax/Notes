@@ -24,9 +24,9 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" Loaded="FoldersDataGrid_Loaded" x:Name="ListOfFolders" CanUserAddRows="False" CanUserDeleteRows="False" Focusable="True" AutoGenerateColumns="False" Width="200" SelectedCellsChanged="ListOfFolders_SelectedCellsChanged">
+                <DataGrid Grid.Row="0" Loaded="FoldersDataGrid_Loaded" x:Name="ListOfFolders" CanUserAddRows="False" CanUserDeleteRows="False" Focusable="True" AutoGenerateColumns="False" Width="200" SelectedCellsChanged="ListOfFolders_SelectedCellsChanged" CanUserResizeColumns="False" CanUserSortColumns="False" MinColumnWidth="200" MaxColumnWidth="200" MouseDoubleClick="ListOfFolders_MouseDoubleClick" SelectionMode="Single" CellEditEnding="ListOfFolders_CellEditEnding">
                     <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="FolderName" Binding="{Binding Title}"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="FolderName" Binding="{Binding Title}" IsReadOnly="True"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Button Grid.Row="1" Name="NewFolder" Content="New Folder" Width="200" Click="NewFolder_Click"></Button>
@@ -36,7 +36,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" Loaded="ListOfFiles_Loaded" x:Name="ListOfFiles" CanUserAddRows="False" CanUserDeleteRows="False" Focusable="True" AutoGenerateColumns="False" Width="200" SelectedCellsChanged="ListOfFiles_SelectedCellsChanged">
+                <DataGrid Grid.Row="0" Loaded="ListOfFiles_Loaded" x:Name="ListOfFiles" CanUserAddRows="False" MouseMove="ListOfFiles_MouseMove" CanUserDeleteRows="False" Focusable="True" AutoGenerateColumns="False" Width="200" SelectedCellsChanged="ListOfFiles_SelectedCellsChanged" CanUserResizeColumns="False" CanUserSortColumns="False" MinColumnWidth="200" MaxColumnWidth="200">
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="FIleName" Binding="{Binding FileName}"></DataGridTextColumn>
                     </DataGrid.Columns>
@@ -44,7 +44,6 @@
                 <Button Grid.Row="1" Name="NewNote" Content="New Note" Width="200" Click="NewNote_Click"></Button>
             </Grid>
             <Grid Grid.Column="2">
-
                 <DockPanel>
                     <ToolBar DockPanel.Dock="Top">
                         <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold"></ToggleButton>

@@ -35,16 +35,15 @@ namespace Notes2
             if (FileName.Text == "")
             {
                 FileName.ToolTip = "File name can't be empty";
-                // FolderName.Background = Brushes.Red;
             }
             else
             {
                 string NameOfFolder = FileName.Text;
+                string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + _F.Title + @"\" + FileName.Text;
+                CreatedFileName = Path;
+                Close();
+                _M.ListOfFiles_Loaded(sender, e);
             }
-            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\" + "Notes" + @"\" + _F.Title + @"\" + FileName.Text;
-            CreatedFileName = Path;
-            Close();
-            _M.ListOfFiles_Loaded(sender, e);
         }
     }
 }
